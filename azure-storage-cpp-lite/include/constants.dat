@@ -4,7 +4,7 @@ DAT(http_head, "HEAD")
 DAT(http_post, "POST")
 DAT(http_put, "PUT")
 
-DAT(default_endpoint_suffix, ".core.windows.net")
+DAT(default_endpoint_suffix, ".core.chinacloudapi.cn")
 
 DAT(query_api_version, "api-version")
 DAT(query_blockid, "blockid")
