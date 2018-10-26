@@ -29,47 +29,47 @@ Ubuntu:
 	
 看到以下提示，表示编译成功：
 
-Linking CXX executable blobfuse
+	Linking CXX executable blobfuse
 
-[100%] Built target blobfuse
+	[100%] Built target blobfuse
 
 4. 把编译好的blobfuse放到path路径下
 
 编译好的blobfuse可执行文件在编译输出的build目录下，把其下的blobfuse可执行文件copy到/usr/bin下。在任意目录中执行blobfuse，看到以下提示表示blobfuse安装就绪：
 
-Usage: blobfuse <mount-folder> --config-file=<config-file> --tmp-path=<temp-path> [--use-https=false] [--file-cache-timeout-in-seconds=120]
+	Usage: blobfuse <mount-folder> --config-file=<config-file> --tmp-path=<temp-path> [--use-https=false] [--file-cache-timeout-in-seconds=120]
 
-Please see https://github.com/Azure/azure-storage-fuse for installation and configuration instructions.
+	Please see https://github.com/Azure/azure-storage-fuse for installation and configuration instructions.
 
 5. 准备blobfuse连接的配置文件，内容类似如下：
 
-accountName azstorage001
+	accountName azstorage001
 
-accountKey BWG2dfUuMAIQX+VNnslPgVGLR7zQ8KI6dv5B0lMwLQEgSjr4kGc3+FCexF9wKQ15AGjWtoT3eyS4t0T5Z8qpIA==
+	accountKey BWG2dfUuMAIQX+VNnslPgVGLR7zQ8KI6dv5B0lMwLQEgSjr4kGc3+FCexF9wKQ15AGjWtoT3eyS4t0T5Z8qpIA==
 
-containerName container01
+	containerName container01
 
 6. 执行连接
 
-blobfuse <mount_folder> --config-file=<connection_config_file> --tmp-path=<blobfuse_cache_folder>
+	blobfuse <mount_folder> --config-file=<connection_config_file> --tmp-path=<blobfuse_cache_folder>
  
 7. 检查连接成功
 
 $ df -h
 
-Filesystem      Size  Used Avail Use% Mounted on
+	Filesystem      Size  Used Avail Use% Mounted on
 
-/dev/sda2        30G   16G   14G  55% /
+	/dev/sda2        30G   16G   14G  55% /
 
-devtmpfs        3.4G     0  3.4G   0% /dev
+	devtmpfs        3.4G     0  3.4G   0% /dev
 
-tmpfs           3.4G   33M  3.4G   1% /run
+	tmpfs           3.4G   33M  3.4G   1% /run
 
-/dev/sda1       497M  105M  393M  22% /boot
+	/dev/sda1       497M  105M  393M  22% /boot
 
-**/dev/sdb1        14G   41M   13G   1% /mnt/resource**   <-- cache folder
+	**/dev/sdb1        14G   41M   13G   1% /mnt/resource**   <-- cache folder
 
-**blobfuse         14G   41M   13G   1% /home/caikai/bmount**  <-- mount folder
+	**blobfuse         14G   41M   13G   1% /home/caikai/bmount**  <-- mount folder
 
 
 
