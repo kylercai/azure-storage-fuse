@@ -1,4 +1,58 @@
 # blobfuse
+
+## Background
+目前blobfuse只能在Global Azure上使用。使用blobfuse连接mooncake的blob container，会导致命令hang死等异常现象。此版本的blobfuse进行了定制，可以连接mooncake的blob container，但不可连global azure的blob了。
+
+## 使用方法：
+1. git clone项目Linux VM
+2. 需要编译，因此针对不同的Linux release，安装需要的依赖库：
+Centos:
+	sudo yum -y install epel-release
+	sudo yum install git cmake3 fuse-devel libcurl-devel gcc gcc-c++ gnutls-devel fuse -y
+
+Redhat:
+	sudo yum install git cmake fuse-devel libcurl-devel gcc gcc-c++ gnutls-devel fuse -y
+
+Ubuntu:
+	sudo apt-get install pkg-config libfuse-dev cmake libcurl4-gnutls-dev libgnutls28-dev -y 
+
+3. 编译：
+	cd azure-storage-fuse/
+	./build.sh
+	
+看到以下提示，表示编译成功：
+Linking CXX executable blobfuse
+[100%] Built target blobfuse
+
+4. 把编译好的blobfuse放到path路径下
+编译好的blobfuse可执行文件在编译输出的build目录下，把其下的blobfuse可执行文件copy到/usr/bin下。在任意目录中执行blobfuse，看到以下提示表示blobfuse安装就绪：
+Usage: blobfuse <mount-folder> --config-file=<config-file> --tmp-path=<temp-path> [--use-https=false] [--file-cache-timeout-in-seconds=120]
+Please see https://github.com/Azure/azure-storage-fuse for installation and configuration instructions.
+
+5. 准备blobfuse连接的配置文件，内容类似如下：
+accountName azstorage001
+accountKey BWG2dfUuMAIQX+VNnslPgVGLR7zQ8KI6dv5B0lMwLQEgSjr4kGc3+FCexF9wKQ15AGjWtoT3eyS4t0T5Z8qpIA==
+containerName container01
+
+6. 执行连接
+ blobfuse <mount_folder> --config-file=<connection_config_file> --tmp-path=<blobfuse_cache_folder>
+ 
+7. 检查连接成功
+$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2        30G   16G   14G  55% /
+devtmpfs        3.4G     0  3.4G   0% /dev
+tmpfs           3.4G     0  3.4G   0% /dev/shm
+tmpfs           3.4G   33M  3.4G   1% /run
+tmpfs           3.4G     0  3.4G   0% /sys/fs/cgroup
+/dev/sda1       497M  105M  393M  22% /boot
+**/dev/sdb1        14G   41M   13G   1% /mnt/resource**   <-- cache folder
+tmpfs           696M     0  696M   0% /run/user/1000
+**blobfuse         14G   41M   13G   1% /home/caikai/bmount**  <-- mount folder
+
+/*******************************************************************************
+* below are the README.md info of original repository                          *
+*******************************************************************************/
 ## About
 
 blobfuse is an open source project developed to provide a virtual filesystem backed by the Azure Blob storage. It uses the [libfuse](https://github.com/libfuse/libfuse) open source library to communicate with the Linux FUSE kernel module, and implements the filesystem operations using the Azure Storage Blob REST APIs.
