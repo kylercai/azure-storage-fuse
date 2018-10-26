@@ -1,4 +1,4 @@
-# blobfuse
+# blobfuse for Azure Mooncake
 
 ## Background
 目前blobfuse只能在Global Azure上使用。使用blobfuse连接mooncake的blob container，会导致命令hang死等异常现象。此版本的blobfuse进行了定制，可以连接mooncake的blob container，但不可连global azure的blob了。
