@@ -6,6 +6,7 @@
 ## 使用方法：
 1. git clone项目到Linux VM
 2. 需要编译，因此针对不同的Linux release，安装需要的依赖库：
+
 Centos:
 
 	sudo yum -y install epel-release
@@ -62,19 +63,17 @@ Filesystem      Size  Used Avail Use% Mounted on
 
 devtmpfs        3.4G     0  3.4G   0% /dev
 
-tmpfs           3.4G     0  3.4G   0% /dev/shm
-
 tmpfs           3.4G   33M  3.4G   1% /run
-
-tmpfs           3.4G     0  3.4G   0% /sys/fs/cgroup
 
 /dev/sda1       497M  105M  393M  22% /boot
 
 **/dev/sdb1        14G   41M   13G   1% /mnt/resource**   <-- cache folder
 
-tmpfs           696M     0  696M   0% /run/user/1000
-
 **blobfuse         14G   41M   13G   1% /home/caikai/bmount**  <-- mount folder
+
+
+
+
 
 /*******************************************************************************
 
